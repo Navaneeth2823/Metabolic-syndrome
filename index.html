@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metabolic Syndrome Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
+        form { display: inline-block; text-align: left; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
+        label, input { display: block; margin-bottom: 10px; }
+        input[type="submit"] { background-color: blue; color: white; padding: 10px; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Metabolic Syndrome Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="Age">Age:</label>
+        <input type="number" name="Age" required>
+
+        <label for="Sex">Sex (0 for Female, 1 for Male):</label>
+        <input type="number" name="Sex" required>
+
+        <label for="Marital">Marital Status (0, 1, 2, ...):</label>
+        <input type="number" name="Marital" required>
+
+        <label for="Race">Race (0, 1, 2, ...):</label>
+        <input type="number" name="Race" required>
+
+        <label for="WaistCirc">Waist Circumference:</label>
+        <input type="number" step="0.1" name="WaistCirc" required>
+
+        <label for="BMI">BMI:</label>
+        <input type="number" step="0.1" name="BMI" required>
+
+        <label for="Albuminuria">Albuminuria:</label>
+        <input type="number" name="Albuminuria" required>
+
+        <label for="UrAlbCr">Urine Albumin to Creatinine Ratio:</label>
+        <input type="number" step="0.1" name="UrAlbCr" required>
+
+        <label for="UricAcid">Uric Acid:</label>
+        <input type="number" step="0.1" name="UricAcid" required>
+
+        <label for="BloodGlucose">Blood Glucose:</label>
+        <input type="number" step="0.1" name="BloodGlucose" required>
+
+        <label for="HDL">HDL:</label>
+        <input type="number" step="0.1" name="HDL" required>
+
+        <label for="Triglycerides">Triglycerides:</label>
+        <input type="number" step="0.1" name="Triglycerides" required>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_text %}
+        <h2>{{ prediction_text }}</h2>
+    {% endif %}
+</body>
+</html>

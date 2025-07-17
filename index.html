@@ -4,57 +4,173 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metabolic Syndrome Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; }
-        form { display: inline-block; text-align: left; padding: 20px; border: 1px solid #ccc; border-radius: 10px; }
-        label, input { display: block; margin-bottom: 10px; }
-        input[type="submit"] { background-color: blue; color: white; padding: 10px; border: none; cursor: pointer; }
+        body {
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            text-align: center;
+            background: linear-gradient(rgba(20,30,50,0.85), rgba(20,30,50,0.85)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            /* Example medical image: stethoscope and clipboard */
+            background-size: cover;
+        }
+        .prediction-text {
+            font-size: 2.2rem;
+            color: #e10795;
+            font-weight: bold;
+            margin-top: 24px;
+            text-shadow: 0 2px 8px #000a;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 100vh;
+            margin-left: 8vw;
+        }
+        form {
+            text-align: center;
+            font-style: oblique;
+            padding: 28px 24px 18px 24px;
+            color: #f50505;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            min-width: 260px;
+            max-width: 220px;
+            margin-top: 120px;
+        }
+        label {
+            font-style: unset;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .input-anim {
+            width: 50vw;
+            min-width: 180px;
+            max-width: 600px;
+            padding: 7px 10px;
+            margin-bottom: 16px;
+            border: 1px solid #0a0000;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+            background: #3de3e8;
+        }
+        .input-anim:focus {
+            border-color: #e40707;
+            box-shadow: 0 0 8px #b7e41155;
+            outline: none;
+        }
+        input[type="submit"] {
+            background: linear-gradient(90deg, #4e03fe 50%, #47013e 100%);
+            color: rgb(6, 1, 1);
+            padding: 12px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px 0 rgba(25,118,210,0.10);
+            transition: background 0.3s;
+        }
+        input[type="submit"]:hover {
+            background: linear-gradient(90deg, #f51fdc 60%, #48a406 100%);
+        }
+        .floating-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            z-index: 100;
+            color: #f50505;
+            font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+            font-size: 2.5rem;
+            font-style: initial;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 16px #000a, 0 1px 0 #1976d2;
+            margin-top: 32px;
+            pointer-events: none;
+            animation: floatHeader 2.5s cubic-bezier(.68,-0.55,.27,1.55) infinite alternate;
+            background: none !important;
+        }
+        @keyframes floatHeader {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(12px) scale(1.04); }
+            100% { transform: translateY(0); }
+        }
+        .medical-icon {
+            width: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 2px 6px #ff010155);
+        }
+        @keyframes placeholderAnim {
+            0% { color: #e004e8; }
+            50% { color: #d219c9; }
+            100% { color: #d510e7; }
+        }
+        ::placeholder {
+            color: #f152ce;
+            opacity: 0.25;
+            background: transparent !important;
+            animation: placeholderAnim 2s infinite;
+        }
     </style>
 </head>
 <body>
-    <h1>Metabolic Syndrome Prediction</h1>
-    <form action="/predict" method="post">
-        <label for="Age">Age:</label>
-        <input type="number" name="Age" required>
+    <div class="floating-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/2966/2966484.png" alt="Medical Icon" class="medical-icon" style="vertical-align: middle; width:40px; margin-bottom:0; margin-right:10px;">
+        Metabolic Syndrome Prediction
+    </div>
+    <div class="container">
+        <form action="/predict" method="post">
+            <label for="Age">Age:</label>
+            <input type="number" name="Age" class="input-anim" placeholder="Enter age (years)" required>
 
-        <label for="Sex">Sex (0 for Female, 1 for Male):</label>
-        <input type="number" name="Sex" required>
+            <label for="Sex">Sex:</label>
+            <input type="number" name="Sex" class="input-anim" placeholder="0 = Female, 1 = Male" required>
 
-        <label for="Marital">Marital Status (0, 1, 2, ...):</label>
-        <input type="number" name="Marital" required>
+            <label for="Marital">Marital Status:</label>
+            <input type="number" name="Marital" class="input-anim" placeholder="0, 1, 2, ..." required>
 
-        <label for="Race">Race (0, 1, 2, ...):</label>
-        <input type="number" name="Race" required>
+            <label for="Race">Race:</label>
+            <input type="number" name="Race" class="input-anim" placeholder="0, 1, 2, ..." required>
 
-        <label for="WaistCirc">Waist Circumference:</label>
-        <input type="number" step="0.1" name="WaistCirc" required>
+            <label for="WaistCirc">Waist Circumference:</label>
+            <input type="number" step="0.1" name="WaistCirc" class="input-anim" placeholder="cm" required>
 
-        <label for="BMI">BMI:</label>
-        <input type="number" step="0.1" name="BMI" required>
+            <label for="BMI">BMI:</label>
+            <input type="number" step="0.1" name="BMI" class="input-anim" placeholder="Body Mass Index" required>
 
-        <label for="Albuminuria">Albuminuria:</label>
-        <input type="number" name="Albuminuria" required>
+            <label for="Albuminuria">Albuminuria:</label>
+            <input type="number" name="Albuminuria" class="input-anim" placeholder="mg/g" required>
 
-        <label for="UrAlbCr">Urine Albumin to Creatinine Ratio:</label>
-        <input type="number" step="0.1" name="UrAlbCr" required>
+            <label for="UrAlbCr">Urine Albumin to Creatinine Ratio:</label>
+            <input type="number" step="0.1" name="UrAlbCr" class="input-anim" placeholder="mg/g" required>
 
-        <label for="UricAcid">Uric Acid:</label>
-        <input type="number" step="0.1" name="UricAcid" required>
+            <label for="UricAcid">Uric Acid:</label>
+            <input type="number" step="0.1" name="UricAcid" class="input-anim" placeholder="mg/dL" required>
 
-        <label for="BloodGlucose">Blood Glucose:</label>
-        <input type="number" step="0.1" name="BloodGlucose" required>
+            <label for="BloodGlucose">Blood Glucose:</label>
+            <input type="number" step="0.1" name="BloodGlucose" class="input-anim" placeholder="mg/dL" required>
 
-        <label for="HDL">HDL:</label>
-        <input type="number" step="0.1" name="HDL" required>
+            <label for="HDL">HDL:</label>
+            <input type="number" step="0.1" name="HDL" class="input-anim" placeholder="mg/dL" required>
 
-        <label for="Triglycerides">Triglycerides:</label>
-        <input type="number" step="0.1" name="Triglycerides" required>
+            <label for="Triglycerides">Triglycerides:</label>
+            <input type="number" step="0.1" name="Triglycerides" class="input-anim" placeholder="mg/dL" required>
 
-        <input type="submit" value="Predict">
-    </form>
-
-    {% if prediction_text %}
-        <h2>{{ prediction_text }}</h2>
+            <input type="submit" value="Predict">
+        </form>
+      {% if prediction_text %}
+        <h2 class="prediction-text">{{ prediction_text }}</h2>
     {% endif %}
+       
+    </div>
 </body>
 </html>
